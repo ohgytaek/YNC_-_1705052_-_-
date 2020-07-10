@@ -1,0 +1,2905 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>jQuery Mobile</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<!-- 기본 세팅(시작시 화면에 안보이게 하는 스크립드) -->
+	<script src="js/seting.js"></script>
+	<!--메인헤더에 있는 이벤트 공지 함수-->
+	<script src="js/eventrolling.js"></script>
+<!-- 모든 버튼 시각처리 스크립트 -->
+	<script src="js/allbutton.js"></script>
+<!-- 상품정보페이지에 내용을 체우는 스크립트 -->
+	<script src="js/productinfopage.js"></script>
+</head>
+
+<script>
+$(document).ready(function(){
+
+});
+</script>
+
+<style>
+ #imgbox{width:100%; height:50%;}
+ #imgbox > img{width:100%; height:50%;}
+ a{text-decoration: none;}
+
+
+
+ .rolling {
+	 list-style: none;
+ }
+ .notice{width:100%; height:30px; overflow:hidden; background-color:}
+ .rolling{position:relative; width:100%; height:auto;}
+ .rolling li{width:100%; height:30px; line-height:0px;}
+ #Pname{width:100%; height:30px; overflow:hidden; background-color:#fff;}
+ #menubutton{width:100%; height:5px;}
+
+ #detail_list{
+	       font-size: 16px;
+         font-family: Consolas, sans-serif;
+		}
+
+#bottom_gnb{ background-color:#fff;}
+#productinfo{padding-inline-start: 0px;}
+#productinfo  > li{margin:5px;margin-bottom:20px; border:2px solid snow; overflow:hidden;}
+#productinfo  > li > a >h4 {margin:5px; margin-top:8px;border-top:2px solid gray; }
+#productinfo  > li > a >h3 {margin:5px;}
+#productinfo  > li > a >h5 {margin:5px;}
+#productinfo  > li > a > div >img {width:100%; height:200px;}
+
+#smalleventimg{width:100%; height:75px;}
+#subpanel > ul >li > a{padding:20px; padding-right:20px;width:55%;height:35px;}
+#classbox{margin-top:15px;}
+#classbox > ul > li{border:20px;}
+#classbox > ul > li > a{height:50px;padding-top:5px;background-color:#ffffff;}
+#classbox > ul > li > a > img{width:80%;}
+#classbox > ul > li > a > h6{margin:0px;}
+
+#reviewbox > table {width:100%;}
+#reviewcontents {width:70%;}
+#productinfobox{width:100%;margin-top:15px;}
+#reviewbox{width:100%;margin-top:15px;}
+#companyinfobox{width:100%;margin-top:15px;}
+
+#bestview > ul{padding-left:0px;}
+#todayview > ul{padding-left:0px;}
+#hotdealview > ul{padding-left:0px;}
+#eventview > ul{padding-left:0px;}
+#bestviewpage > ul{padding-left:0px;}
+
+.fastlist{margin:5px;margin-bottom:20px; border:2px solid snow; overflow:hidden;}
+.fastlist > a >h4 {margin:5px; margin-top:8px;border-top:2px solid gray; }
+.fastlist > a >h3 {margin:5px;}
+.fastlist > a >h5 {margin:5px;}
+.fastlist > a > div >img {width:100%; height:200px;}
+
+#pwrule{ margin:0px;}
+
+</style>
+
+<body>
+
+	<!--======================================================================================메인페이지======================================================================================-->
+<div data-role="page" id="mainpage" >
+
+	<!-- 로그인 패널 -->
+    <div data-role="panel" id="loginpanel" data-display="overlay" data-theme="b">
+        <form>
+            <h3>로그인</h3>
+            <label for="name">ID</label>
+            <input name="name" id="name" type="text" value="" data-mini="true" data-clear-btn="true">
+            <label for="password">PW</label>
+            <input name="password" id="password" type="password" value="" data-mini="true" data-clear-btn="true">
+            <div class="ui-grid-a">
+                <div class="ui-block-a"><a href="#memberjoinpage" data-role="button" data-rel="close">회원가입</a></div>
+                <div class="ui-block-b"><a href="#menupanel" data-role="button" data-rel="close">로그인</a></div>
+								<div class="ui-block-c"><a href="#" data-role="button" data-rel="close">뒤로가기</a></div>
+            </div>
+        </form>
+    </div>
+
+<!-- 메뉴패널 -->
+<div data-role="panel" id="menupanel" data-display="overlay">
+	<h1>메뉴</h1>
+		<ul data-role="listview">
+				<div data-role="navbar"id="subpanel">
+					<ul>
+						<li><a>마이</br>페이지</a></li>
+						<li><a></br>이벤트</a></li>
+						<li><a href="#basketpage">장바</br>구니</a></li>
+					</ul>
+				</div>
+			</li>
+				<li data-icon="grid"><a href="#productpage" >전체상품</a></li>
+				<li data-icon="heart"><a href="#bestproductpage" >베스트상품</a></li>
+				<li data-icon="tag"><a href="#hotdealpage" >핫딜상품</a></li>
+				<li data-icon="star"><a href="#eventproductpage" >이벤트상품</a></li>
+				<li data-icon="user"><a href="#loginpanel">로그인</a></li>
+
+		</ul>
+</div>
+<!-- 장바구니 패널 -->
+<div data-role="panel" id="basketpanel" data-display="overlay" data-position="right">
+		<h3>장바구니</h3>
+		<p>장바구니 패널 영역입니다.</p>
+		<a href="#basketpage" data-role="button" data-inline="true">장바구니이동</a>
+		<a href="#" data-role="button" data-rel="close" data-inline="true"> 닫기</a>
+</div>
+
+<!-- 메인 화면 -->
+<div data-role="header"data-position="fixed" data-theme="b" >
+	<h1><a href="mainpage">메인페이지</a></h1>
+	<a href="#basketpanel" data-icon="shop" data-iconpos="notext" class="ui-btn-right">basket</a>
+<!-- 해더 내비바 리스트 -->
+	<div data-role="navbar">
+		<ul>
+			<li><a class="ui-btn-active" id="bestB">베스트</a></li>
+			<li><a id="hotdealB">핫딜</a></li>
+			<li><a id="todayB">오늘배송</a></li>
+			<li><a id="eventB">이벤트</a></li>
+		</ul>
+	</div>
+	<!-- 헤더 공지사항 리스트 -->
+	<div class="notice">
+		<ul class="rolling">
+			<li><a>이벤트 내용 1</a></li>
+			<li><a>이벤트 내용 2</a></li>
+			<li><a>이벤트 내용 3</a></li>
+			<li><a>이벤트 내용 4</a></li>
+			<li><a>이벤트 내용 5</a></li>
+		</ul>
+	</div>
+</div>
+
+<div data-role="content">
+	<div id = "imgbox"><img src = "img/eventimg.png" alt="이벤트이미지" /></div>
+<!-- 화면 중앙 버튼 -->
+	<div data-role="navbar" id="classbox">
+		<ul>
+			<li><a href="#productpage" id="cpuBt"><img src="img/cpu.png"/><h6>CPU</h6></a></li>
+			<li><a href="#productpage" id="gcardBt"><img src="img/gcard.png"/><h6>그래픽카드</h6></a></li>
+			<li><a href="#productpage" id="ramBt"><img src="img/ram.png"/><h6>RAM</h6></a></li>
+			<li><a href="#productpage" id="mboardBt"><img src="img/mboard.png"/><h6>메인보드</h6></a></li>
+		</ul>
+		<ul>
+			<li><a href="#productpage" id="saveBt"><img src="img/hdd.png"/><h6>저장장치</h6></a></li>
+			<li><a href="#productpage" id="caseBt"><img src="img/case.png"/><h6>케이스</h6></a></li>
+			<li><a href="#productpage" id="mouseBt"><img src="img/mouse.png"/><h6>마우스</h6></a></li>
+			<li><a href="#productpage" id="keyboardBt"><img src="img/keyboard.png"/><h6>키보드</h6></a></li>
+		</ul>
+	</div>
+
+<!-- 베스트 상품 리스트 -->
+	<div class="listview" id = "bestview">
+		<h2>베스트상품</h2>
+		<ul>
+			<li class="fastlist">
+				<a href="#productinfopage">
+				<!-- 상품이미지 -->
+				<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+				<!-- 상품명 -->
+				<h4>인텔 코어i9-10세대 10900K (코멧레이크S) </h4>
+				<!-- 제조사 -->
+				<h5>intel(인텔)</h5>
+				<!-- 가격 -->
+				<h3>872,900원</h3>
+			</a>
+			</li>
+			<li class="fastlist">
+				<a href="#productinfopage">
+				<!-- 상품이미지 -->
+				<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+				<!-- 상품명 -->
+				<h4> AMD 라이젠5-3세대 3600 (마티스) </h4>
+				<!-- 제조사 -->
+				<h5>AMD(암드)</h5>
+				<!-- 가격 -->
+				<h3>197,000원</h3>
+			</a>
+			</li>
+			<li class="fastlist">
+				<a href="#productinfopage">
+				<!-- 상품이미지 -->
+				<div><img src = "img/hdd.png" alt="상품이미지" /></div>
+				<!-- 상품명 -->
+				<h4> Seagate 파이어쿠다 520 M.2 NVMe </h4>
+				<!-- 제조사 -->
+				<h5>Seagate</h5>
+				<!-- 가격 -->
+				<h3>630,000원</h3>
+			</a>
+			</li>
+			<li class="fastlist">
+				<a href="#productinfopage">
+				<!-- 상품이미지 -->
+				<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+				<!-- 상품명 -->
+				<h4>  갤럭시 GALAX 지포스 RTX 2080 SUPER EX WHITE OC D6 8GB  </h4>
+				<!-- 제조사 -->
+				<h5>갤럭시</h5>
+				<!-- 가격 -->
+				<h3>839,300원</h3>
+			</a>
+			</li>
+			<li style="overflow:hidden;"><a href="#bestproductpage">더 보기</a></li>
+		</ul>
+</div>
+<!-- 핫딜 상품 리스트 -->
+<div id = "hotdealview">
+	<h2>핫딜상품</h2>
+	<ul>
+		<li class="fastlist">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4>인텔 코어i9-10세대 10900K (코멧레이크S) </h4>
+			<!-- 제조사 -->
+			<h5>intel(인텔)</h5>
+			<!-- 가격 -->
+			<div>
+			<h3><del>872,900원</del>(5%할인)</h3>
+			<h3>829,255원</h3>
+		</div>
+		</a>
+		</li>
+		<li class="fastlist">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> AMD 라이젠5-3세대 3600 (마티스) </h4>
+			<!-- 제조사 -->
+			<h5>AMD(암드)</h5>
+			<!-- 가격 -->
+			<div>
+			<h3><del>197,000원</del>(7%할인)</h3>
+			<h3>183,210원</h3>
+		</div>
+		</a>
+		</li>
+		<li class="fastlist">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/hdd.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> Seagate 파이어쿠다 520 M.2 NVMe </h4>
+			<!-- 제조사 -->
+			<h5>Seagate</h5>
+			<!-- 가격 -->
+			<div>
+			<h3><del>630,000원</del>(15%할인)</h3>
+			<h3>535,500원</h3>
+		</div>
+		</a>
+		</li>
+		<li class="fastlist">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4>  갤럭시 GALAX 지포스 RTX 2080 SUPER EX WHITE OC D6 8GB  </h4>
+			<!-- 제조사 -->
+			<h5>갤럭시</h5>
+			<!-- 가격 -->
+			<div>
+			<h3><del>839,300원</del>(10%할인)</h3>
+			<h3>755,370원</h3>
+		</div>
+		</a>
+		</li>
+		<li style="overflow:hidden;"><a href="#hotdealpage">더 보기</a></li>
+	</ul>
+</div>
+<!-- 오늘배송 상품 리스트 -->
+<div id = "todayview">
+	<h2>오늘배송상품</h2>
+	<ul>
+		<li class="fastlist">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4>인텔 코어i9-10세대 10900K (코멧레이크S) </h4>
+			<!-- 제조사 -->
+			<h5>intel(인텔)</h5>
+			<!-- 가격 -->
+			<h3>872,900원</h3>
+		</a>
+		</li>
+		<li class="fastlist">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> AMD 라이젠5-3세대 3600 (마티스) </h4>
+			<!-- 제조사 -->
+			<h5>AMD(암드)</h5>
+			<!-- 가격 -->
+			<h3>197,000원</h3>
+		</a>
+		</li>
+		<li class="fastlist">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/hdd.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> Seagate 파이어쿠다 520 M.2 NVMe </h4>
+			<!-- 제조사 -->
+			<h5>Seagate</h5>
+			<!-- 가격 -->
+			<h3>630,000원</h3>
+		</a>
+		</li>
+		<li class="fastlist">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4>  갤럭시 GALAX 지포스 RTX 2080 SUPER EX WHITE OC D6 8GB  </h4>
+			<!-- 제조사 -->
+			<h5>갤럭시</h5>
+			<!-- 가격 -->
+			<h3>839,300원</h3>
+		</a>
+		</li>
+		<li style="overflow:hidden;"><a href="#todaypage">더 보기</a></li>
+	</ul>
+</div>
+<!-- 이벤트 상품 리스트 -->
+<div id = "eventview">
+	<h2>이벤트상품</h2>
+	<ul>
+		<li class="fastlist">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4>인텔 코어i9-10세대 10900K (코멧레이크S) </h4>
+			<!-- 제조사 -->
+			<h5>intel(인텔)</h5>
+			<!-- 가격 -->
+			<h3>872,900원</h3>
+		</a>
+		</li>
+		<li class="fastlist">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> AMD 라이젠5-3세대 3600 (마티스) </h4>
+			<!-- 제조사 -->
+			<h5>AMD(암드)</h5>
+			<!-- 가격 -->
+			<h3>197,000원</h3>
+		</a>
+		</li>
+		<li class="fastlist">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/hdd.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> Seagate 파이어쿠다 520 M.2 NVMe </h4>
+			<!-- 제조사 -->
+			<h5>Seagate</h5>
+			<!-- 가격 -->
+			<h3>630,000원</h3>
+		</a>
+		</li>
+		<li class="fastlist">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4>  갤럭시 GALAX 지포스 RTX 2080 SUPER EX WHITE OC D6 8GB  </h4>
+			<!-- 제조사 -->
+			<h5>갤럭시</h5>
+			<!-- 가격 -->
+			<h3>839,300원</h3>
+		</a>
+		</li>
+		<li style="overflow:hidden;"><a href="#eventproductpage">더 보기</a></li>
+	</ul>
+</div>
+</div>
+    <div data-role="footer" data-position="fixed">
+			<div data-role="navbar" >
+				<ul>
+					<li><a href="#menupanel" data-icon="plus">메뉴</a></li>
+
+					<li><a href="#mainpage" data-icon="home" >홈</a></li>
+					<li><a href="#noticepage" data-icon="minus">공지</a></li>
+					 <li><a href="#loginpanel" data-icon="user" >로그인</a></li>
+				</ul>
+			</div>
+    </div>
+
+</div>
+
+<!--==========================================================================================상품 페이지 ===========================================================================================-->
+
+<!--======================================================================================주요부품 상품 페이지 ======================================================================================-->
+<div data-role="page" id="productpage">
+	<!-- 로그인 패널 -->
+	<div data-role="panel" id="loginpanel" data-display="overlay" data-theme="b">
+			<form>
+					<h3>로그인</h3>
+					<label for="name">ID</label>
+					<input name="name" id="name" type="text" value="" data-mini="true" data-clear-btn="true">
+					<label for="password">PW</label>
+					<input name="password" id="password" type="password" value="" data-mini="true" data-clear-btn="true">
+					<div class="ui-grid-a">
+							<div class="ui-block-a"><a href="#memberjoinpage" data-role="button" data-rel="close">회원가입</a></div>
+							<div class="ui-block-b"><a href="#menupanel" data-role="button" data-rel="close">로그인</a></div>
+							<div class="ui-block-c"><a href="#" data-role="button" data-rel="close">뒤로가기</a></div>
+					</div>
+			</form>
+	</div>
+
+	<!-- 메뉴패널 -->
+	<div data-role="panel" id="menupanel" data-display="overlay">
+		<h1>메뉴</h1>
+			<ul data-role="listview">
+					<div data-role="navbar"id="subpanel">
+						<ul>
+							<li><a>마이</br>페이지</a></li>
+							<li><a></br>이벤트</a></li>
+							<li><a href="#basketpage">장바</br>구니</a></li>
+						</ul>
+					</div>
+				</li>
+					<li data-icon="grid"><a href="#productpage" >전체상품</a></li>
+					<li data-icon="heart"><a href="#page" >베스트상품</a></li>
+					<li data-icon="tag"><a href="#page" >핫딜상품</a></li>
+					<li data-icon="star"><a href="#page" >이벤트상품</a></li>
+					<li data-icon="user"><a href="#loginpanel">로그인</a></li>
+
+			</ul>
+	</div>
+	<!-- 장바구니 패널 -->
+	<div data-role="panel" id="basketpanel" data-display="overlay" data-position="right">
+			<h3>장바구니</h3>
+			<p>장바구니 패널 영역입니다.</p>
+			<a href="#basketpage" data-role="button" data-inline="true">장바구니이동</a>
+			<a href="#" data-role="button" data-rel="close" data-inline="true"> 닫기</a>
+	</div>
+
+<!-- 메인 화면 -->
+<div data-role="header"data-position="fixed" data-theme="b" data-add-back-btn="true">
+<h1><a href="#mainpage">상품페이지</a></h1>
+	<a href="#basketpanel" data-icon="shop" data-iconpos="notext" class="ui-btn-right">basket</a>
+<!-- 해더 위쪽 내비바 -->
+<div data-role="navbar">
+	<div id="top_gnb">
+<ul >
+<li id="mainpartBt"><a>주요부품</a></li>
+<li id="subpartlBt"><a>보조부품</a></li>
+<li id="nearproductBt"><a>주변물품</a></li>
+</ul>
+</div>
+<!-- 해더 아래쪽 내비바 -->
+<div data-role="navbar" id="bottom_gnb">
+	<!-- 주요부품 -->
+<div id="mainpart">
+<ul>
+<li id="cpuproductBt"><a >CPU</a></li>
+<li id="gcardproductBt"><a>그래픽카드</a></li>
+<li id="ramproductBt"><a>RAM카드</a></li>
+<li id="mboardproductBt"><a>메인보드</a></li>
+</ul>
+<ul>
+<li id="powerproductBt"><a>파워</a></li>
+<li id="saveproductBt"><a>저장장치</a></li>
+<li id="caseproductBt"><a>케이스</a></li>
+</ul>
+</div>
+
+<!-- 보조부품 -->
+<div id="subpart">
+<ul>
+<li id="coolproductBt"><a>냉각장치</a></li>
+<li id="cableproductBt"><a>케이블</a></li>
+<li id="soundproductBt"><a>음향장치</a></li>
+<li id="ODDproductBt"><a>ODD</a></li>
+</ul>
+</div>
+
+<!-- 주변물품 -->
+<div id="nearproduct">
+<ul>
+
+<li id="mouseproductBt"><a>마우스</a></li>
+<li id="keyboardproductBt"><a>키보드</a></li>
+<li id="monitorproductBt"><a>모니터</a></li>
+<li id="broadcastproductBt"><a>방송장비</a></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+
+    <div data-role="content" background-color="ivory">
+<!-- 이벤트 공지 이미지 -->
+		<img src = "img/event(small).jpg" id= "smalleventimg" alt="이벤트이미지" />
+		<!-- 상품정보 표현 -->
+		<!-- =====================================================================주요부품======================================================================= -->
+<div id="mainpartpage">
+		<ul data-filter="true" data-filter-placeholder="검색키워드를 입력하세요" id="productinfo">
+			<!--============================================= cpu ===================================================-->
+		<li class="cpuproduct">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4>인텔 코어i9-10세대 10900K (코멧레이크S) </h4>
+			<!-- 제조사 -->
+			<h5>intel(인텔)</h5>
+			<!-- 가격 -->
+			<h3>872,900원</h3>
+		</a>
+			<!-- 해시태그 -->
+			<span>#CPU</span><span>#인텔(소켓1200)</span><span>#10세대</span><span>#i9</span><span>#10코어</span>
+		</li>
+
+		<li class="cpuproduct">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> 인텔 코어i7-9세대 9700K (커피레이크-R) </h4>
+			<!-- 제조사 -->
+			<h5>intel(인텔)</h5>
+			<!-- 가격 -->
+			<h3>414,800원</h3>
+		</a>
+			<!-- 해시태그 -->
+			<span>#CPU</span><span>#인텔(소켓1151v2)</span><span>#9세대</span><span>#i7</span><span>#옥타(8)코어</span>
+	</li>
+
+		<li class="cpuproduct">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> 인텔 코어i5-7세대 7500 (카비레이크)</h4>
+			<!-- 제조사 -->
+			<h5>intel(인텔)</h5>
+			<!-- 가격 -->
+			<h3>270,000원</h3>
+		</a>
+			<!-- 해시태그 -->
+			<span>#CPU</span><span>#인텔(소켓1151)</span><span>#7세대</span><span>#i5</span><span>#쿼드(4)코어</span>
+	</li>
+
+	<li class="cpuproduct">
+		<a href="#productinfopage">
+		<!-- 상품이미지 -->
+		<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+		<!-- 상품명 -->
+		<h4>인텔 코어i3-8세대 8100 (커피레이크) </h4>
+		<!-- 제조사 -->
+		<h5>intel(인텔)</h5>
+		<!-- 가격 -->
+		<h3>872,900원</h3>
+	</a href="#productinfopage">
+		<!-- 해시태그 -->
+		<span>#CPU</span><span>#인텔(소켓1511v2)</span><span>#8세대</span><span>#i3</span><span>#쿼드(4)코어</span>
+	</li>
+
+	<li class="cpuproduct">
+		<a href="#productinfopage">
+		<!-- 상품이미지 -->
+		<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+		<!-- 상품명 -->
+		<h4> AMD 라이젠9-3세대 3900X (마티스) </h4>
+		<!-- 제조사 -->
+		<h5>AMD(암드)</h5>
+		<!-- 가격 -->
+		<h3>554,200원</h3>
+	</a>
+		<!-- 해시태그 -->
+		<span>#CPU</span><span>#AMD(소켓AM4)</span><span>#3세대</span><span>#라이젠9</span><span>#12코어</span>
+</li>
+
+	<li class="cpuproduct">
+		<a href="#productinfopage">
+		<!-- 상품이미지 -->
+		<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+		<!-- 상품명 -->
+		<h4> AMD 라이젠7-3세대 3700X (마티스) </h4>
+		<!-- 제조사 -->
+		<h5>AMD(암드)</h5>
+		<!-- 가격 -->
+		<h3>342,800원</h3>
+	</a>
+		<!-- 해시태그 -->
+		<span>#CPU</span><span>#AMD(소켓AM4)</span><span>#3세대</span><span>#라이젠7</span><span>#옥타(8)코어</span>
+</li>
+
+<li class="cpuproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> AMD 라이젠5-3세대 3600 (마티스) </h4>
+	<!-- 제조사 -->
+	<h5>AMD(암드)</h5>
+	<!-- 가격 -->
+	<h3>197,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#CPU</span><span>#AMD(소켓AM4)</span><span>#3세대</span><span>#라이젠5</span><span>#헥사(6)코어</span>
+</li>
+
+<li class="cpuproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> AMD 라이젠3-3세대 3100 (마티스) </h4>
+	<!-- 제조사 -->
+	<h5>AMD(암드)</h5>
+	<!-- 가격 -->
+	<h3>127,000원</h3>
+	</a>
+	<!-- 해시태그 -->
+	<span>#CPU</span><span>#AMD(소켓AM4)</span><span>#3세대</span><span>#라이젠3</span><span>#쿼드(4)코어</span>
+</li>
+
+<!-- =========================================================그래픽카드=================================================== -->
+<li class="gcardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> MSI 지포스 GTX 1660 SUPER 게이밍 X D6 6GB 트윈프로져7 </h4>
+	<!-- 제조사 -->
+	<h5>MSI</h5>
+	<!-- 가격 -->
+	<h3>296,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#그래픽카드(VGA)</span><span>#지포스(GEFORCE)</span><span>#메모리 용량 6GB</span><span>#메모리 클럭 14000MHz</span><span>#코어 클럭 부스트1830MHz</span>
+</li>
+
+<li class="gcardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 이엠텍 지포스 RTX 2070 SUPER GAMER OC D6 8GB </h4>
+	<!-- 제조사 -->
+	<h5>이엠텍</h5>
+	<!-- 가격 -->
+	<h3>615,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#그래픽카드(VGA)</span><span>#지포스(GEFORCE)</span><span>#메모리 용량 8GB</span><span>#메모리 클럭 14000MHz</span><span>#코어 클럭1605MHz,부스트1800MHz</span>
+</li>
+
+<li class="gcardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4>  갤럭시 GALAX 지포스 RTX 2080 SUPER EX WHITE OC D6 8GB  </h4>
+	<!-- 제조사 -->
+	<h5>갤럭시</h5>
+	<!-- 가격 -->
+	<h3>839,300원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#그래픽카드(VGA)</span><span>#지포스(GEFORCE)</span><span>#메모리 용량 8GB</span><span>#메모리 클럭 15500MHz</span><span>#코어 클럭 1650MHz,부스트1845MHz</span>
+</li>
+
+<li class="gcardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> GIGABYTE 지포스 GTX 1650 SUPER WINDFORCE OC D6 4GB  </h4>
+	<!-- 제조사 -->
+	<h5>GIGABYTE(기가바이트)</h5>
+	<!-- 가격 -->
+	<h3>212,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#그래픽카드(VGA)</span><span>#지포스(GEFORCE)</span><span>#메모리 용량 4GB</span><span>#메모리 클럭 12000MHz</span><span>#코어 클럭 부스트1755MHz</span>
+</li>
+
+<li class="gcardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> ZOTAC GAMING 지포스 RTX 2060 FLEX D6 6GB </h4>
+	<!-- 제조사 -->
+	<h5>ZOTAC(조텍)</h5>
+	<!-- 가격 -->
+	<h3>386,640원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#그래픽카드(VGA)</span><span>#지포스(GEFORCE)</span><span>#메모리 용량 6GB</span><span>#메모리 클럭 14000MHz</span><span>#코어 클럭 부스트1680MHz</span>
+</li>
+
+<li class="gcardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> EVGA 지포스 RTX 2070 FTW3 ULTRA GAMING D6 8GB  </h4>
+	<!-- 제조사 -->
+	<h5>EVGA</h5>
+	<!-- 가격 -->
+	<h3>1,438,700원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#그래픽카드(VGA)</span><span>#지포스(GEFORCE)</span><span>#메모리 용량 8GB</span><span>#메모리 클럭 14000MHz</span><span>#코어 클럭 부스트1815MHz</span>
+</li>
+
+<li class="gcardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> ASUS DUAL 지포스 GTX 1660 Ti O6G D6 6GB  </h4>
+	<!-- 제조사 -->
+	<h5>ASUS</h5>
+	<!-- 가격 -->
+	<h3>385,200원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#그래픽카드(VGA)</span><span>#지포스(GEFORCE)</span><span>#메모리 용량 6GB</span><span>#메모리 클럭 12002MHz</span><span>#코어 클럭1530MHz,부스트 1830MHz</span>
+</li>
+
+<li class="gcardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> ASRock Phantom Gaming D 라데온 RX 570 D5 4GB 에즈윈  </h4>
+	<!-- 제조사 -->
+	<h5>ASRock</h5>
+	<!-- 가격 -->
+	<h3>152,500원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#그래픽카드(VGA)</span><span>#라데온(RADEON)</span><span>#메모리 용량 4GB</span><span>#메모리 클럭 7000MHz</span><span>#코어 클럭1244MHz, 부스트1293MHz</span>
+</li>
+
+<!-- =========================================================RAM=================================================== -->
+<li class="ramproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/ram.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 삼성전자 DDR4 8G PC4-23400 (정품) </h4>
+	<!-- 제조사 -->
+	<h5>삼성전자</h5>
+	<!-- 가격 -->
+	<h3>38,700원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#램카드(RAM)</span><span>#DDR4</span><span>#메모리 용량 8GB</span><span>#동작클럭(대역폭) 2933MHz(PC4-23400)</span>
+</li>
+
+<li class="ramproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/ram.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 삼성전자 DDR4 32G PC4-21300 (정품) </h4>
+	<!-- 제조사 -->
+	<h5>삼성전자</h5>
+	<!-- 가격 -->
+	<h3>131,600원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#램카드(RAM)</span><span>#DDR4</span><span>#메모리 용량 32GB</span><span>#동작클럭(대역폭) 2666MHz(PC4-21300)</span>
+</li>
+
+<li class="ramproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/ram.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> G.SKILL DDR4 32G PC4-28800 CL16 TRIDENT Z NEO C (16Gx2)   </h4>
+	<!-- 제조사 -->
+	<h5>G.SKILL</h5>
+	<!-- 가격 -->
+	<h3>294,500원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#램카드(RAM)</span><span>#DDR4</span><span>#메모리 용량 (16*2)GB</span><span>#동작클럭(대역폭) 3600MHz(PC4-28800)</span>
+</li>
+
+<li class="ramproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/ram.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> ASRock Phantom Gaming D 라데온 RX 570 D5 4GB 에즈윈  </h4>
+	<!-- 제조사 -->
+	<h5>ASRock</h5>
+	<!-- 가격 -->
+	<h3>152,500원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#램카드(RAM)</span><span>#DDR</span><span>#메모리 용량 GB</span><span>#동작클럭(대역폭) 7000MHz(PC4-)</span>
+</li>
+
+<li class="ramproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/ram.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> TeamGroup T-Force DDR4 16G PC4-25600 CL16 Delta RGB (8Gx2) 서린 </h4>
+	<!-- 제조사 -->
+	<h5>TeamGroup</h5>
+	<!-- 가격 -->
+	<h3>93,980원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#램카드(RAM)</span><span>#DDR4</span><span>#메모리 용량 (8*2)GB</span><span>#동작클럭(대역폭) 3200MHz(PC4-25600)</span>
+</li>
+
+<li class="ramproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/ram.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> GeIL DDR4 8G PC4-25600 CL22 PRISTINE   </h4>
+	<!-- 제조사 -->
+	<h5>GeIL</h5>
+	<!-- 가격 -->
+	<h3>34,200원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#램카드(RAM)</span><span>#DDR4</span><span>#메모리 용량 8GB</span><span>#동작클럭(대역폭) 3200MHz(PC4-25600)</span>
+</li>
+
+
+<!-- =========================================================메인보드=================================================== -->
+<li class="mboardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/mboard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> ASRock B460M PRO4 디앤디컴   </h4>
+	<!-- 제조사 -->
+	<h5>ASRock</h5>
+	<!-- 가격 -->
+	<h3>114,800원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#메인보드</span><span>#인텔 CPU(소켓1200)</span><span>#(인텔)B460</span><span>#메모리 최대 용량 128GB</span><span>#DDR4</span>
+</li>
+
+<li class="mboardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/mboard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4>  BIOSTAR H310MHP 이엠텍   </h4>
+	<!-- 제조사 -->
+	<h5>BIOSTAR</h5>
+	<!-- 가격 -->
+	<h3>56,900원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#메인보드</span><span>#인텔 CPU(소켓1151v2)</span><span>#(인텔)H310</span><span>#메모리 최대 용량 32GB</span><span>#DDR4</span>
+</li>
+
+<li class="mboardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/mboard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> MSI A320M-A PRO </h4>
+	<!-- 제조사 -->
+	<h5>MSI</h5>
+	<!-- 가격 -->
+	<h3>57,500원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#메인보드</span><span>#AMD CPU(소켓AM4)</span><span>#(AMD)A320</span><span>#메모리 최대 용량 32GB</span><span>#DDR4</span>
+</li>
+
+<li class="mboardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/mboard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> ASUS EX A320M-GAMING 대원CTS </h4>
+	<!-- 제조사 -->
+	<h5>ASUS</h5>
+	<!-- 가격 -->
+	<h3>75,220원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#메인보드</span><span>#AMD CPU(소켓AM4)</span><span>#(AMD)A320</span><span>#메모리 최대 용량 64GB</span><span>#DDR4</span>
+</li>
+
+<!-- =========================================================파워=================================================== -->
+<li class="powerproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/power.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 마이크로닉스 Classic II 600W +12V Single Rail 85+   </h4>
+	<!-- 제조사 -->
+	<h5>마이크로닉스</h5>
+	<!-- 가격 -->
+	<h3>53,500원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#파워</span><span>#ATX파워</span><span>#600W</span><span>#120mm 팬</span>
+</li>
+<li class="powerproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/power.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> CORSAIR SF750 80 PLUS Platinum </h4>
+	<!-- 제조사 -->
+	<h5> CORSAIR</h5>
+	<!-- 가격 -->
+	<h3>214,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#파워</span><span>#M-ATX(SFX)파워</span><span>#750W</span><span>#62mm 팬</span>
+</li>
+<li class="powerproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/power.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4>  스카이디지탈 파워스테이션4 PS4-350T 86P ActivePFC V2.31 </h4>
+	<!-- 제조사 -->
+	<h5>스카이디지탈</h5>
+	<!-- 가격 -->
+	<h3>43,300원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#파워</span><span>#TFX파워</span><span>#350W</span><span>#80mm 팬</span>
+</li>
+<li class="powerproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/power.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4>  FSP HYPER K 500W 80PLUS Standard 230V EU </h4>
+	<!-- 제조사 -->
+	<h5>FSP</h5>
+	<!-- 가격 -->
+	<h3>42,400원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#파워</span><span>#ATX파워</span><span>#500W</span><span>#120mm 팬</span>
+</li>
+
+<!-- =========================================================저장장치=================================================== -->
+
+<li class="saveproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/hdd.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4>삼성전자 860 EVO </h4>
+	<!-- 제조사 -->
+	<h5>삼성전자</h5>
+	<!-- 가격 -->
+	<h3>369,910원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#저장장치</span><span>#내장SSD</span><span>#저장용량 2TB</span><span>#6.4cm(2.5인치)</span><span>메모리 타입: TLC(토글)</span>
+</li>
+<li class="saveproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/hdd.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> Seagate 파이어쿠다 520 M.2 NVMe </h4>
+	<!-- 제조사 -->
+	<h5>Seagate</h5>
+	<!-- 가격 -->
+	<h3>630,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#저장장치</span><span>#내장SSD</span><span>#저장용량 2TB</span><span>#M.2(2280)</span><span>메모리 타입: TLC(기타)</span>
+</li>
+<li class="saveproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/hdd.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4>마이크론 Crucial MX500 대원CTS  </h4>
+	<!-- 제조사 -->
+	<h5>마이크론</h5>
+	<!-- 가격 -->
+	<h3>46,690원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#저장장치</span><span>#내장SSD</span><span>#저장용량 250GB</span><span>#6.4cm(2.5인치)</span><span>메모리 타입: TLC(기타)</span>
+</li>
+<li class="saveproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/hdd.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4>삼성전자 970 EVO M.2 NVMe  </h4>
+	<!-- 제조사 -->
+	<h5>삼성저전자</h5>
+	<!-- 가격 -->
+	<h3>108,960원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#저장장치</span><span>#내장SSD</span><span>#저장용량 500GB</span><span>#M.2(2280)</span><span>메모리 타입: TLC(기타)</span>
+</li>
+
+<!-- =========================================================케이스=================================================== -->
+<li class="caseproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/case.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> ABKO NCORE 아수라 풀 아크릴 (블랙) </h4>
+	<!-- 제조사 -->
+	<h5>ABKO</h5>
+	<!-- 가격 -->
+	<h3>42,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#케이스</span><span>#미들타워</span><span>#팬 개수:120mm LED(2,전) + 120mm LED(1,후)</span><span>#표준-ATX / Micro-ATX / Mini-ITX</span>
+</li>
+<li class="caseproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/case.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> BRAVOTEC GUARDIAN 1200M 타이탄 글래스 </h4>
+	<!-- 제조사 -->
+	<h5>BRAVOTEC</h5>
+	<!-- 가격 -->
+	<h3>115,500원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#케이스</span><span>#빅타워</span><span>#팬 개수:140mm LED(1,후) + 200mm LED(2,전)</span><span># Extended-ATX / 표준-ATX / Micro-ATX / Mini-ITX</span>
+</li>
+<li class="caseproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/case.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> darkFlash DLM22 RGB 강화유리 </h4>
+	<!-- 제조사 -->
+	<h5>darkFlash</h5>
+	<!-- 가격 -->
+	<h3>40,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#케이스</span><span>#미워타워</span><span>#팬 개수:120mm LED(1,후)</span><span>#표준-ATX,Micro-ATX,Mini-ITX</span>
+</li>
+<li class="caseproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/case.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 마이크로닉스 Master M60 메쉬 </h4>
+	<!-- 제조사 -->
+	<h5>마이크로닉스</h5>
+	<!-- 가격 -->
+	<h3>30,900원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#케이스</span><span>#미들타워</span><span>#팬 개수:120mm LED(1,후) + 120mm LED(3,전) + 120mm (2,상)</span><span># 표준-ATX / Micro-ATX / Mini-ITX</span>
+</li>
+<li class="caseproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/case.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 리안리 PC-O11D XL ROG </h4>
+	<!-- 제조사 -->
+	<h5>리안리</h5>
+	<!-- 가격 -->
+	<h3>284,900원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#케이스</span><span>#빅타워</span><span>#팬 개수: X</span><span># Extended-ATX / 표준-ATX / Micro-ATX / Mini-ITX</span>
+</li>
+<li class="caseproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/case.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> DAVEN D1 MESH 아크릴  </h4>
+	<!-- 제조사 -->
+	<h5>DAVEN</h5>
+	<!-- 가격 -->
+	<h3>24,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#케이스</span><span>#미들타워</span><span>#팬 개수:120mm LED(1,후) + 120mm LED(3,전)</span><span>#표준-ATX / Micro-ATX / Mini-ITX</span>
+</li>
+
+</ul>
+</div>
+
+
+<!-- ================================================== 보조 부품=========================================================================== -->
+
+<div id="subpartpage">
+		<ul data-filter="true" data-filter-placeholder="검색키워드를 입력하세요" id="productinfo">
+			<!--============================================= 냉걱장치 ===================================================-->
+		<li class="coolproduct">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/cooler.jpg" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> 잘만 CNPS9X OPTIMA WHITE LED </h4>
+			<!-- 제조사 -->
+			<h5>잘만</h5>
+			<!-- 가격 -->
+			<h3>24,700원</h3>
+		</a>
+			<!-- 해시태그 -->
+			<span>#쿨러(CPU)</span><span>#공냉(타워형)</span><span>#팬 쿨러(LET)</span><span>#팬 크기:120mm</span><span>#베어링: Rifle</span>
+		</li>
+
+		<li class="coolproduct">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/cooler.jpg" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> 에너맥스 LIQMAX III ARGB 360  </h4>
+			<!-- 제조사 -->
+			<h5>에너맥스</h5>
+			<!-- 가격 -->
+			<h3>120,600원</h3>
+		</a>
+			<!-- 해시태그 -->
+			<span>#쿨러(CPU)</span><span>#수냉</span><span>#팬 쿨러(LET)</span><span>#팬 크기:120mm</span><span>#라디에이터:3열</span>
+		</li>
+
+		<li class="coolproduct">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/cooler.jpg" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> DEEPCOOL GAMMAXX L240 V2 RGB  </h4>
+			<!-- 제조사 -->
+			<h5>DEEPCOOL</h5>
+			<!-- 가격 -->
+			<h3>74,000원</h3>
+		</a>
+			<!-- 해시태그 -->
+			<span>#쿨러(CPU)</span><span>#수냉</span><span>#팬 쿨러(LET)</span><span>#팬 크기:120mm</span><span>#알루미늄</span>
+		</li>
+
+		<li class="coolproduct">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/cooler.jpg" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> 3RSYS Socoool RC80 RGB </h4>
+			<!-- 제조사 -->
+			<h5>3RSYS</h5>
+			<!-- 가격 -->
+			<h3>24,700원</h3>
+		</a>
+			<!-- 해시태그 -->
+			<span>#쿨러(CPU)</span><span>#공냉(일반형)</span><span>#팬 쿨러(LET)</span><span>#팬 크기:90mm</span><span>#베어링: Rifle</span>
+		</li>
+
+<li class="coolproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/cooler.jpg" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> ARCTIC P14 PWM PST </h4>
+	<!-- 제조사 -->
+	<h5>ARCTIC</h5>
+	<!-- 가격 -->
+	<h3>16,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#쿨러(시스템)</span><span>#공냉</span><span>#팬 쿨러</span><span>#팬 크기:140mm</span><span>#베어링: FDB</span>
+</li>
+
+<li class="coolproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/cooler.jpg" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> LEADCOOL 120 LED WHITE BLACK </h4>
+	<!-- 제조사 -->
+	<h5>LEADCOOL</h5>
+	<!-- 가격 -->
+	<h3>5,720원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#쿨러(시스템)</span><span>#공냉</span><span>#팬 쿨러</span><span>#팬 크기:120mm</span><span>#베어링: Hydraulic</span>
+</li>
+
+<li class="coolproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/cooler.jpg" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> ALSEYE D-Ringer PWM RGB SYNC KIT </h4>
+	<!-- 제조사 -->
+	<h5>ALSEYE</h5>
+	<!-- 가격 -->
+	<h3>9,560원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#쿨러(시스템)</span><span>#공냉</span><span>#팬 쿨러</span><span>#팬 크기:120mm</span><span>#베어링: Hydraulic</span>
+</li>
+
+<li class="coolproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/cooler.jpg" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> JONSBO M2-3 SSD </h4>
+	<!-- 제조사 -->
+	<h5>JONSBO</h5>
+	<!-- 가격 -->
+	<h3>9,300원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#방열판(M.2 SSD)</span><span>#공냉</span><span>#알루미늄</span><span>#M.2 2280 규격</span>
+</li>
+
+<li class="coolproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/cooler.jpg" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> JONSBO NC-1 RGB </h4>
+	<!-- 제조사 -->
+	<h5>JONSBO</h5>
+	<!-- 가격 -->
+	<h3>14,990원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#방열판(RAM)</span><span>#공냉</span><span>#알루미늄</span><span>#DDR2,DDR3,DDR4규격</span>
+</li>
+
+<li class="coolproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/cooler.jpg" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 리뷰안 MYSSD M.2 NVMe SSD   </h4>
+	<!-- 제조사 -->
+	<h5>리뷰안</h5>
+	<!-- 가격 -->
+	<h3>19,900원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#방열판(M.2 SSD)</span><span>#공냉</span><span>#알루미늄</span><span>#M.2 2280 규격</span>
+</li>
+
+<!-- =========================================================케이블=================================================== -->
+<li class="cableproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/cable.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 케이엘시스템 KLcom PRIME 고급형 HDMI v2.0 케이블 (1m, KL11)</h4>
+	<!-- 제조사 -->
+	<h5>케이엘시스템</h5>
+	<!-- 가격 -->
+	<h3>2,310원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#케이블(HDMI)</span><span>#M-M형</span><span>#로프형</span><span>#최대 지원 해상도: 4K@60Hz (5K@30Hz)</span>
+</li>
+
+<li class="cableproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/cable.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 강원전자 NETmate DisplayPort 1.4 DP8K 케이블  </h4>
+	<!-- 제조사 -->
+	<h5>강원전자</h5>
+	<!-- 가격 -->
+	<h3>11,130원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#케이블(PD)</span><span>#M-M형</span><span>#라운드형</span><span># 최대 지원 해상도: 8K@60Hz</span>
+</li>
+
+<li class="cableproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/cable.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 리안리 STRIMER PLUS RGB 24핀 케이블 </h4>
+	<!-- 제조사 -->
+	<h5>리안리</h5>
+	<!-- 가격 -->
+	<h3>74,600원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#케이블(슬리빙)</span><span>#M-F형</span><span>#로프형</span><span>#ALL-IN-ONE 컨트롤러</span>
+</li>
+
+<li class="cableproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/cable.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 강원전자 NETmate CAT.8 SSTP 랜 케이블 (NM-U8)  </h4>
+	<!-- 제조사 -->
+	<h5>강원전자</h5>
+	<!-- 가격 -->
+	<h3>6,260원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#케이블(LAN)</span><span>#M-M형</span><span>#라운드형</span><span>#40Gbps (40기가비트)</span>
+</li>
+
+<li class="cableproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/cable.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 리버네트워크 NEXI SATA3 (ㅡ자ㅡ자) 락타입 </h4>
+	<!-- 제조사 -->
+	<h5>리버네트워크</h5>
+	<!-- 가격 -->
+	<h3>500원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#케이블(SATA)</span><span>#ㅡ자ㅡ자</span><span>#SATA 6Gbps(SATA3)</span>
+</li>
+
+<!-- =========================================================음향장치=================================================== -->
+<li class="soundproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/sound.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> ABKO SP400 (화이트) </h4>
+	<!-- 제조사 -->
+	<h5>ABKO</h5>
+	<!-- 가격 -->
+	<h3>20,500원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#pc 스피커</span><span>#2채널</span><span>#USB지원</span><span>#북쉘프형</span><span>#4Ω</span>
+</li>
+
+<li class="soundproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/sound.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> Britz 브리츠인터내셔널 Z2200 Cheek </h4>
+	<!-- 제조사 -->
+	<h5>Britz</h5>
+	<!-- 가격 -->
+	<h3>38,500원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#pc 스피커</span><span>#2채널</span><span>#USB지원</span><span>#북쉘프형</span><span>#4Ω</span>
+</li>
+
+<li class="soundproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/sound.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> MAXTILL SB-200 사운드바 스피커 (블랙, USB 전원) </h4>
+	<!-- 제조사 -->
+	<h5>MAXTILL</h5>
+	<!-- 가격 -->
+	<h3>14,900원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#pc 스피커</span><span>#2채널</span><span>#USB지원</span><span>#사운드바형</span><span>#4Ω</span>
+</li>
+
+<li class="soundproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/sound.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> Creative PEBBLE V2  </h4>
+	<!-- 제조사 -->
+	<h5>Creative</h5>
+	<!-- 가격 -->
+	<h3>39,900원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#pc 스피커</span><span>#2채널</span><span>#USB지원</span><span>#일반형</span>
+</li>
+
+<li class="soundproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/sound.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> Creative 사운드 블라스터X G6 사운드카드 </h4>
+	<!-- 제조사 -->
+	<h5>Creative</h5>
+	<!-- 가격 -->
+	<h3>189,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#사운드카드</span><span>#가상 7.1채널지원</span><span>#USB지원</span>
+</li>
+
+<!-- =========================================================ODD=================================================== -->
+<li class="ODDproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/odd.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> LG전자 울트라 슬림 외장ODD GP62NB60 </h4>
+	<!-- 제조사 -->
+	<h5>LG전자</h5>
+	<!-- 가격 -->
+	<h3>34,300원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#외장ODD</span><span>#DVD멀티레코더</span><span>#USB2.0</span><span>#읽기지원: CD, DVD</span>
+</li>
+
+<li class="ODDproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/odd.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> ASUS ZenDrive U7M SDRW-08U7M-U-S </h4>
+	<!-- 제조사 -->
+	<h5>ASUS</h5>
+	<!-- 가격 -->
+	<h3>35,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#외장ODD</span><span>#DVD멀티레코더</span><span>#USB2.0</span><span># 읽기지원: CD, DVD, DVD-RAM</span>
+</li>
+
+<li class="ODDproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/odd.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> LG전자 Super-Multi GH24NSD1 </h4>
+	<!-- 제조사 -->
+	<h5>LG전자</h5>
+	<!-- 가격 -->
+	<h3>15,800원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#내장ODD</span><span>#DVD멀티레코더</span><span>#SATA</span><span># 읽기지원: CD, DVD </span><span>#DDR4</span>
+</li>
+
+<li class="ODDproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/odd.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> ASUS SBW-06D2X-U  </h4>
+	<!-- 제조사 -->
+	<h5>ASUS</h5>
+	<!-- 가격 -->
+	<h3>161,800원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#외장ODD</span><span>#블루레이레코더</span><span>#USB2.0</span><span>#읽기지원: CD, DVD, 블루레이, DVD-RAM</span><span>#DDR4</span>
+</li>
+
+</ul>
+</div>
+
+<!-- ================================================== 주변물품=========================================================================== -->
+
+<div id="nearproductpage">
+		<ul data-filter="true" data-filter-placeholder="검색키워드를 입력하세요" id="productinfo">
+			<!--============================================= 마우스 ===================================================-->
+		<li class="mouseproduct">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/mouse.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> MAXTILL TRON G10PRO reborn 3330 RGB 게이밍마우스 (무광 UV코팅) </h4>
+			<!-- 제조사 -->
+			<h5>MAXTILL</h5>
+			<!-- 가격 -->
+			<h3>20,600원</h3>
+		</a>
+			<!-- 해시태그 -->
+			<span>#마우스</span><span>#광</span><span>#유선</span><span>#게이밍마우스</span><span>#가속도 30G</span>
+		</li>
+
+		<li class="mouseproduct">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/mouse.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> MAXTILL RATIO RM11 PMW 3389 게이밍 마우스 </h4>
+			<!-- 제조사 -->
+			<h5>MAXTILL</h5>
+			<!-- 가격 -->
+			<h3>37,000원</h3>
+		</a>
+			<!-- 해시태그 -->
+			<span>#마우스</span><span>#광</span><span>#유선</span><span>#게이밍마우스</span><span>#가속도 50G</span>
+		</li>
+
+		<li class="mouseproduct">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/mouse.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> 로지텍 G102 PRODIGY (정품) </h4>
+			<!-- 제조사 -->
+			<h5>로지텍</h5>
+			<!-- 가격 -->
+			<h3>29,870원</h3>
+		</a>
+			<!-- 해시태그 -->
+			<span>#마우스</span><span>#광</span><span>#유선</span><span>#게이밍마우스</span>
+		</li>
+
+		<li class="mouseproduct">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/mouse.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> 마이크로닉스 MANIC E5S C-TYPE 멀티리시버 무소음 무선 마우스  </h4>
+			<!-- 제조사 -->
+			<h5>마이크로닉스</h5>
+			<!-- 가격 -->
+			<h3>12,600원</h3>
+		</a>
+			<!-- 해시태그 -->
+			<span>#마우스</span><span>#광</span><span>#무선</span><span>#AA형 1개</span><span>#무소음 스위치</span>
+		</li>
+
+		<li class="mouseproduct">
+			<a href="#productinfopage">
+			<!-- 상품이미지 -->
+			<div><img src = "img/mouse.png" alt="상품이미지" /></div>
+			<!-- 상품명 -->
+			<h4> 로지텍 MX MASTER 3 (정품) </h4>
+			<!-- 제조사 -->
+			<h5>로지텍</h5>
+			<!-- 가격 -->
+			<h3>129,000원</h3>
+		</a>
+			<!-- 해시태그 -->
+			<span>#마우스</span><span>#레이저</span><span>#무선+블루투스</span><span>#내장배터리</span><span>#센서:다크필드</span>
+		</li>
+
+
+<!-- =========================================================키보드=================================================== -->
+<li class="keyboardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/keyboard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 마이크로닉스 MANIC X50 4세대 광축 완전방수 PBT 게이밍 키보드 (네이비 스카이블루) </h4>
+	<!-- 제조사 -->
+	<h5>마이크로닉스</h5>
+	<!-- 가격 -->
+	<h3>61,500원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#키도브(일반)</span><span>#유선</span><span>#104키</span><span>#게이밍</span><span>#무접점(광축)</span>
+</li>
+
+<li class="keyboardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/keyboard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> ABKO HACKER K660 축교환 완전방수 게이밍 카일 광축 </h4>
+	<!-- 제조사 -->
+	<h5>ABKO</h5>
+	<!-- 가격 -->
+	<h3>45,900원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#키도브(일반)</span><span>#유선</span><span>#104키</span><span>#게이밍</span><span>#무접점(광축)</span>
+</li>
+
+<li class="keyboardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/keyboard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> COX CK420 교체축 레인보우 LED 게이밍 기계식 키보드 (화이트, 갈축) </h4>
+	<!-- 제조사 -->
+	<h5>COX</h5>
+	<!-- 가격 -->
+	<h3>32,600원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#키도브(일반)</span><span>#유선</span><span>#104키</span><span>#게이밍</span><span>#기계식</span>
+</li>
+
+<li class="keyboardproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/keyboard.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 레오폴드 FC900R PD 그라파이트 화이트 한글 </h4>
+	<!-- 제조사 -->
+	<h5>레오폴드</h5>
+	<!-- 가격 -->
+	<h3>137,880원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#키도브(일반)</span><span>#유선</span><span>#104키</span><span>#게이밍,사무용</span><span>#기계식</span>
+</li>
+
+<!-- =========================================================모니터=================================================== -->
+<li class="monitorproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/monitor.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 크로스오버 32UL980 HDR 4K 프리미엄 무결점 </h4>
+	<!-- 제조사 -->
+	<h5>크로스오버</h5>
+	<!-- 가격 -->
+	<h3>451,300원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#모니터(32인치)</span><span>#외이드(16:9)</span><span>#평면</span><span>#3840x2160(4K UHD)</span><span>#최대주사율:60Hz</span>
+</li>
+
+<li class="monitorproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/monitor.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 알파스캔 AOC 27G2 게이밍 144 프리싱크 무결점 </h4>
+	<!-- 제조사 -->
+	<h5>알파스캔</h5>
+	<!-- 가격 -->
+	<h3>337,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#모니터(27인치)</span><span>#외이드(16:9)</span><span>#평면</span><span>#1920x1080(FHD)</span><span>#최대주사율:144Hz</span>
+</li>
+
+<li class="monitorproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/monitor.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 필립스 278M 게이밍 144 높낮이 무결점 </h4>
+	<!-- 제조사 -->
+	<h5>필립스</h5>
+	<!-- 가격 -->
+	<h3>258,500원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#모니터(27인치)</span><span>#외이드(16:9)</span><span>#커브드</span><span>#1920x10800(FHD)</span><span>#최대주사율:144Hz</span>
+</li>
+
+<li class="monitorproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/monitor.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 필립스 241E1 프리싱크 75 시력보호 제로베젤 무결점 </h4>
+	<!-- 제조사 -->
+	<h5>필립스</h5>
+	<!-- 가격 -->
+	<h3>142,900원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#모니터(24인치)</span><span>#외이드(16:9)</span><span>#평면</span><span>#1920x10800(FHD)</span><span>#최대주사율:75Hz</span>
+</li>
+
+<li class="monitorproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/monitor.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 삼성전자 Odyssey G7 C32G75T </h4>
+	<!-- 제조사 -->
+	<h5>삼성전자</h5>
+	<!-- 가격 -->
+	<h3>849,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#모니터(32인치)</span><span>#외이드(16:9)</span><span>#커브드</span><span>#2560x1440(QHD)</span><span>#최대주사율:240Hz</span>
+</li>
+
+<!-- =========================================================방송장비=================================================== -->
+<li class="broadcastproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/broadcast.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> AVerMedia Live Gamer 4K </h4>
+	<!-- 제조사 -->
+	<h5>AVerMedia</h5>
+	<!-- 가격 -->
+	<h3>330,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#캡처보드</span><span>#PCI-Express</span><span>#2160p</span><span>#4K HDR 60fps, QHD 120fps, FHD 240fps</span>
+</li>
+
+<li class="broadcastproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/broadcast.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> ABKO APC930 FHD 웹캠 </h4>
+	<!-- 제조사 -->
+	<h5>ABKO</h5>
+	<!-- 가격 -->
+	<h3>64,900원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#PC 캠</span><span>#USB</span><span>#1920 x 1080(FHD)</span><span>#30fps</span>
+</li>
+
+<li class="broadcastproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/broadcast.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> 컴소닉 PILLAR 구즈넥 스탠드 마이크 CM-700USB (블랙) </h4>
+	<!-- 제조사 -->
+	<h5>컴소닉</h5>
+	<!-- 가격 -->
+	<h3>20,080원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#PC용 마이크</span><span>#USB</span><span>#구즈넥</span><span>#콘덴서</span>
+</li>
+
+<li class="broadcastproduct">
+	<a href="#productinfopage">
+	<!-- 상품이미지 -->
+	<div><img src = "img/broadcast.png" alt="상품이미지" /></div>
+	<!-- 상품명 -->
+	<h4> Razer Seiren X (블랙) </h4>
+	<!-- 제조사 -->
+	<h5>Razer</h5>
+	<!-- 가격 -->
+	<h3>149,000원</h3>
+</a>
+	<!-- 해시태그 -->
+	<span>#PC용 마이크</span><span>#3.5mm</span><span>#USB</span><span>#콘덴서</span>
+</li>
+
+
+</ul>
+</div>
+
+</div>
+
+
+<div data-role="footer" data-position="fixed">
+	<div data-role="navbar" >
+		<ul>
+			<li><a href="#menupanel" data-icon="plus">메뉴</a></li>
+
+			<li><a href="#mainpage" data-icon="home" >홈</a></li>
+			<li><a href="#noticepage" data-icon="minus">공지</a></li>
+			 <li><a href="#loginpanel" data-icon="user" >로그인</a></li>
+		</ul>
+	</div>
+</div>
+</div>
+<!-- ======================================================================================베스트상품 페이지======================================================================================-->
+
+<div data-role="page" id="bestproductpage">
+
+	<!-- 로그인 패널 -->
+	<div data-role="panel" id="loginpanel" data-display="overlay" data-theme="b">
+			<form>
+					<h3>로그인</h3>
+					<label for="name">ID</label>
+					<input name="name" id="name" type="text" value="" data-mini="true" data-clear-btn="true">
+					<label for="password">PW</label>
+					<input name="password" id="password" type="password" value="" data-mini="true" data-clear-btn="true">
+					<div class="ui-grid-a">
+							<div class="ui-block-a"><a href="#memberjoinpage" data-role="button" data-rel="close">회원가입</a></div>
+							<div class="ui-block-b"><a href="#menupanel" data-role="button" data-rel="close">로그인</a></div>
+							<div class="ui-block-c"><a href="#" data-role="button" data-rel="close">뒤로가기</a></div>
+					</div>
+			</form>
+	</div>
+
+<!-- 메뉴패널 -->
+<div data-role="panel" id="menupanel" data-display="overlay">
+	<h1>메뉴</h1>
+		<ul data-role="listview">
+				<div data-role="navbar"id="subpanel">
+					<ul>
+						<li><a>마이</br>페이지</a></li>
+						<li><a></br>이벤트</a></li>
+						<li><a href="#basketpage">장바</br>구니</a></li>
+					</ul>
+				</div>
+			</li>
+				<li data-icon="grid"><a href="#productpage" >전체상품</a></li>
+				<li data-icon="heart"><a href="#bestproductpage" >베스트상품</a></li>
+				<li data-icon="tag"><a href="#hotdealpage" >핫딜상품</a></li>
+				<li data-icon="star"><a href="#eventproductpage" >이벤트상품</a></li>
+				<li data-icon="user"><a href="#loginpanel">로그인</a></li>
+
+		</ul>
+</div>
+<!-- 장바구니 패널 -->
+<div data-role="panel" id="basketpanel" data-display="overlay" data-position="right">
+		<h3>장바구니</h3>
+		<p>장바구니 패널 영역입니다.</p>
+		<a href="#basketpage" data-role="button" data-inline="true">장바구니이동</a>
+		<a href="#" data-role="button" data-rel="close" data-inline="true"> 닫기</a>
+</div>
+
+<!-- 메인 화면 -->
+  <div data-role="header"data-position="fixed" data-theme="b" data-add-back-btn="true">
+	<h1>베스트상품페이지</h1>
+
+		<a href="#basketpanel" data-icon="shop" data-iconpos="notext" class="ui-btn-right">basket</a>
+    </div>
+
+    <div data-role="content">
+			<div class="listview" id = "bestviewpage">
+				<h2>베스트상품</h2>
+				<ul>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4>인텔 코어i9-10세대 10900K (코멧레이크S) </h4>
+						<!-- 제조사 -->
+						<h5>intel(인텔)</h5>
+						<!-- 가격 -->
+						<h3>872,900원</h3>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4> AMD 라이젠5-3세대 3600 (마티스) </h4>
+						<!-- 제조사 -->
+						<h5>AMD(암드)</h5>
+						<!-- 가격 -->
+						<h3>197,000원</h3>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/hdd.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4> Seagate 파이어쿠다 520 M.2 NVMe </h4>
+						<!-- 제조사 -->
+						<h5>Seagate</h5>
+						<!-- 가격 -->
+						<h3>630,000원</h3>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4>  갤럭시 GALAX 지포스 RTX 2080 SUPER EX WHITE OC D6 8GB  </h4>
+						<!-- 제조사 -->
+						<h5>갤럭시</h5>
+						<!-- 가격 -->
+						<h3>839,300원</h3>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4>인텔 코어i9-10세대 10900K (코멧레이크S) </h4>
+						<!-- 제조사 -->
+						<h5>intel(인텔)</h5>
+						<!-- 가격 -->
+						<h3>872,900원</h3>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4> AMD 라이젠5-3세대 3600 (마티스) </h4>
+						<!-- 제조사 -->
+						<h5>AMD(암드)</h5>
+						<!-- 가격 -->
+						<h3>197,000원</h3>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/hdd.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4> Seagate 파이어쿠다 520 M.2 NVMe </h4>
+						<!-- 제조사 -->
+						<h5>Seagate</h5>
+						<!-- 가격 -->
+						<h3>630,000원</h3>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4>  갤럭시 GALAX 지포스 RTX 2080 SUPER EX WHITE OC D6 8GB  </h4>
+						<!-- 제조사 -->
+						<h5>갤럭시</h5>
+						<!-- 가격 -->
+						<h3>839,300원</h3>
+					</a>
+					</li>
+				</ul>
+		</div>
+    </div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" >
+				<ul>
+					<li><a href="#menupanel" data-icon="plus">메뉴</a></li>
+
+					<li><a href="#mainpage" data-icon="home" >홈</a></li>
+					<li><a href="#noticepage" data-icon="minus">공지</a></li>
+					 <li><a href="#loginpanel" data-icon="user" >로그인</a></li>
+				</ul>
+			</div>
+    </div>
+</div>
+
+
+<!-- ======================================================================================핫딜 페이지======================================================================================-->
+
+<div data-role="page" id="hotdealpage">
+
+	<!-- 로그인 패널 -->
+	<div data-role="panel" id="loginpanel" data-display="overlay" data-theme="b">
+			<form>
+					<h3>로그인</h3>
+					<label for="name">ID</label>
+					<input name="name" id="name" type="text" value="" data-mini="true" data-clear-btn="true">
+					<label for="password">PW</label>
+					<input name="password" id="password" type="password" value="" data-mini="true" data-clear-btn="true">
+					<div class="ui-grid-a">
+							<div class="ui-block-a"><a href="#memberjoinpage" data-role="button" data-rel="close">회원가입</a></div>
+							<div class="ui-block-b"><a href="#menupanel" data-role="button" data-rel="close">로그인</a></div>
+							<div class="ui-block-c"><a href="#" data-role="button" data-rel="close">뒤로가기</a></div>
+					</div>
+			</form>
+	</div>
+
+<!-- 메뉴패널 -->
+<div data-role="panel" id="menupanel" data-display="overlay">
+	<h1>메뉴</h1>
+		<ul data-role="listview">
+				<div data-role="navbar"id="subpanel">
+					<ul>
+						<li><a>마이</br>페이지</a></li>
+						<li><a></br>이벤트</a></li>
+						<li><a href="#basketpage">장바</br>구니</a></li>
+					</ul>
+				</div>
+			</li>
+				<li data-icon="grid"><a href="#productpage" >전체상품</a></li>
+				<li data-icon="heart"><a href="#bestproductpage" >베스트상품</a></li>
+				<li data-icon="tag"><a href="#hotdealpage" >핫딜상품</a></li>
+				<li data-icon="star"><a href="#eventproductpage" >이벤트상품</a></li>
+				<li data-icon="user"><a href="#loginpanel">로그인</a></li>
+
+		</ul>
+</div>
+<!-- 장바구니 패널 -->
+<div data-role="panel" id="basketpanel" data-display="overlay" data-position="right">
+		<h3>장바구니</h3>
+		<p>장바구니 패널 영역입니다.</p>
+		<a href="#basketpage" data-role="button" data-inline="true">장바구니이동</a>
+		<a href="#" data-role="button" data-rel="close" data-inline="true"> 닫기</a>
+</div>
+
+<!-- 메인 화면 -->
+    <div data-role="header"data-position="fixed" data-theme="b" data-add-back-btn="true">
+	<h1>핫딜</h1>
+
+		<a href="#basketpanel" data-icon="shop" data-iconpos="notext" class="ui-btn-right">basket</a>
+    </div>
+
+    <div data-role="content">
+			<div id = "hotdealview">
+				<h2>핫딜상품페이지</h2>
+				<ul>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4>인텔 코어i9-10세대 10900K (코멧레이크S) </h4>
+						<!-- 제조사 -->
+						<h5>intel(인텔)</h5>
+						<!-- 가격 -->
+						<div>
+						<h3><del>872,900원</del>(5%할인)</h3>
+						<h3>829,255원</h3>
+					</div>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4> AMD 라이젠5-3세대 3600 (마티스) </h4>
+						<!-- 제조사 -->
+						<h5>AMD(암드)</h5>
+						<!-- 가격 -->
+						<div>
+						<h3><del>197,000원</del>(7%할인)</h3>
+						<h3>183,210원</h3>
+					</div>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/hdd.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4> Seagate 파이어쿠다 520 M.2 NVMe </h4>
+						<!-- 제조사 -->
+						<h5>Seagate</h5>
+						<!-- 가격 -->
+						<div>
+						<h3><del>630,000원</del>(15%할인)</h3>
+						<h3>535,500원</h3>
+					</div>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4>  갤럭시 GALAX 지포스 RTX 2080 SUPER EX WHITE OC D6 8GB  </h4>
+						<!-- 제조사 -->
+						<h5>갤럭시</h5>
+						<!-- 가격 -->
+						<div>
+						<h3><del>839,300원</del>(10%할인)</h3>
+						<h3>755,370원</h3>
+					</div>
+					</a>
+					</li>
+					<li style="overflow:hidden;"><a href="#hotdealpage">더 보기</a></li>
+				</ul>
+			</div>
+    </div>
+
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" >
+				<ul>
+					<li><a href="#menupanel" data-icon="plus">메뉴</a></li>
+
+					<li><a href="#mainpage" data-icon="home" >홈</a></li>
+					<li><a href="#noticepage" data-icon="minus">공지</a></li>
+					 <li><a href="#loginpanel" data-icon="user" >로그인</a></li>
+				</ul>
+			</div>
+    </div>
+</div>
+
+
+<!-- ======================================================================================오늘배송 페이지======================================================================================-->
+
+<div data-role="page" id="todaypage">
+
+	<!-- 로그인 패널 -->
+	<div data-role="panel" id="loginpanel" data-display="overlay" data-theme="b">
+			<form>
+					<h3>로그인</h3>
+					<label for="name">ID</label>
+					<input name="name" id="name" type="text" value="" data-mini="true" data-clear-btn="true">
+					<label for="password">PW</label>
+					<input name="password" id="password" type="password" value="" data-mini="true" data-clear-btn="true">
+					<div class="ui-grid-a">
+							<div class="ui-block-a"><a href="#memberjoinpage" data-role="button" data-rel="close">회원가입</a></div>
+							<div class="ui-block-b"><a href="#menupanel" data-role="button" data-rel="close">로그인</a></div>
+							<div class="ui-block-c"><a href="#" data-role="button" data-rel="close">뒤로가기</a></div>
+					</div>
+			</form>
+	</div>
+
+<!-- 메뉴패널 -->
+<div data-role="panel" id="menupanel" data-display="overlay">
+	<h1>메뉴</h1>
+		<ul data-role="listview">
+				<div data-role="navbar"id="subpanel">
+					<ul>
+						<li><a>마이</br>페이지</a></li>
+						<li><a></br>이벤트</a></li>
+						<li><a href="#basketpage">장바</br>구니</a></li>
+					</ul>
+				</div>
+			</li>
+				<li data-icon="grid"><a href="#productpage" >전체상품</a></li>
+				<li data-icon="heart"><a href="#bestproductpage" >베스트상품</a></li>
+				<li data-icon="tag"><a href="#hotdealpage" >핫딜상품</a></li>
+				<li data-icon="star"><a href="#eventproductpage" >이벤트상품</a></li>
+				<li data-icon="user"><a href="#loginpanel">로그인</a></li>
+
+		</ul>
+</div>
+<!-- 장바구니 패널 -->
+<div data-role="panel" id="basketpanel" data-display="overlay" data-position="right">
+		<h3>장바구니</h3>
+		<p>장바구니 패널 영역입니다.</p>
+		<a href="#basketpage" data-role="button" data-inline="true">장바구니이동</a>
+		<a href="#" data-role="button" data-rel="close" data-inline="true"> 닫기</a>
+</div>
+
+<!-- 메인 화면 -->
+    <div data-role="header"data-position="fixed" data-theme="b" data-add-back-btn="true">
+	<h1>오늘배송상품페이지</h1>
+
+		<a href="#basketpanel" data-icon="shop" data-iconpos="notext" class="ui-btn-right">basket</a>
+    </div>
+
+    <div data-role="content">
+			<div id = "todayview">
+				<h2>오늘배송상품</h2>
+				<ul>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4>인텔 코어i9-10세대 10900K (코멧레이크S)</h4>
+						<!-- 제조사 -->
+						<h5>intel(인텔)</h5>
+						<!-- 가격 -->
+						<h3>872,900원</h3>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4> AMD 라이젠5-3세대 3600 (마티스)</h4>
+						<!-- 제조사 -->
+						<h5>AMD(암드)</h5>
+						<!-- 가격 -->
+						<h3>197,000원</h3>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/hdd.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4> Seagate 파이어쿠다 520 M.2 NVMe </h4>
+						<!-- 제조사 -->
+						<h5>Seagate</h5>
+						<!-- 가격 -->
+						<h3>630,000원</h3>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4>  갤럭시 GALAX 지포스 RTX 2080 SUPER EX WHITE OC D6 8GB </h4>
+						<!-- 제조사 -->
+						<h5>갤럭시</h5>
+						<!-- 가격 -->
+						<h3>839,300원</h3>
+					</a>
+					</li>
+				</ul>
+			</div>
+    </div>
+
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" >
+				<ul>
+					<li><a href="#menupanel" data-icon="plus">메뉴</a></li>
+
+					<li><a href="#mainpage" data-icon="home" >홈</a></li>
+					<li><a href="#noticepage" data-icon="minus">공지</a></li>
+					 <li><a href="#loginpanel" data-icon="user" >로그인</a></li>
+				</ul>
+			</div>
+    </div>
+</div>
+
+<!-- ======================================================================================이벤트 상품 페이지======================================================================================-->
+
+<div data-role="page" id="eventproductpage">
+
+	<!-- 로그인 패널 -->
+	<div data-role="panel" id="loginpanel" data-display="overlay" data-theme="b">
+			<form>
+					<h3>로그인</h3>
+					<label for="name">ID</label>
+					<input name="name" id="name" type="text" value="" data-mini="true" data-clear-btn="true">
+					<label for="password">PW</label>
+					<input name="password" id="password" type="password" value="" data-mini="true" data-clear-btn="true">
+					<div class="ui-grid-a">
+							<div class="ui-block-a"><a href="#memberjoinpage" data-role="button" data-rel="close">회원가입</a></div>
+							<div class="ui-block-b"><a href="#menupanel" data-role="button" data-rel="close">로그인</a></div>
+							<div class="ui-block-c"><a href="#" data-role="button" data-rel="close">뒤로가기</a></div>
+					</div>
+			</form>
+	</div>
+
+<!-- 메뉴패널 -->
+<div data-role="panel" id="menupanel" data-display="overlay">
+	<h1>메뉴</h1>
+		<ul data-role="listview">
+				<div data-role="navbar"id="subpanel">
+					<ul>
+						<li><a>마이</br>페이지</a></li>
+						<li><a></br>이벤트</a></li>
+						<li><a href="#basketpage">장바</br>구니</a></li>
+					</ul>
+				</div>
+			</li>
+				<li data-icon="grid"><a href="#productpage" >전체상품</a></li>
+				<li data-icon="heart"><a href="#bestproductpage" >베스트상품</a></li>
+				<li data-icon="tag"><a href="#hotdealpage" >핫딜상품</a></li>
+				<li data-icon="star"><a href="#eventproductpage" >이벤트상품</a></li>
+				<li data-icon="user"><a href="#loginpanel">로그인</a></li>
+
+		</ul>
+</div>
+<!-- 장바구니 패널 -->
+<div data-role="panel" id="basketpanel" data-display="overlay" data-position="right">
+		<h3>장바구니</h3>
+		<p>장바구니 패널 영역입니다.</p>
+		<a href="#basketpage" data-role="button" data-inline="true">장바구니이동</a>
+		<a href="#" data-role="button" data-rel="close" data-inline="true"> 닫기</a>
+</div>
+
+<!-- 메인 화면 -->
+    <div data-role="header"data-position="fixed" data-theme="b" data-add-back-btn="true">
+	<h1>이벤트 상품페이지</h1>
+
+		<a href="#basketpanel" data-icon="shop" data-iconpos="notext" class="ui-btn-right">basket</a>
+    </div>
+
+    <div data-role="content">
+			<div id = "eventview">
+				<h2>이벤트상품</h2>
+				<ul>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4>인텔 코어i9-10세대 10900K (코멧레이크S)(삼성카드결제이벤트) </h4>
+						<!-- 제조사 -->
+						<h5>intel(인텔)</h5>
+						<!-- 가격 -->
+						<h3>872,900원</h3>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/cpu.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4> AMD 라이젠5-3세대 3600 (마티스)(쿠폰이벤트) </h4>
+						<!-- 제조사 -->
+						<h5>AMD(암드)</h5>
+						<!-- 가격 -->
+						<h3>197,000원</h3>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/hdd.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4> Seagate 파이어쿠다 520 M.2 NVMe (2+1 이벤트)</h4>
+						<!-- 제조사 -->
+						<h5>Seagate</h5>
+						<!-- 가격 -->
+						<h3>630,000원</h3>
+					</a>
+					</li>
+					<li class="fastlist">
+						<a href="#productinfopage">
+						<!-- 상품이미지 -->
+						<div><img src = "img/gcard.png" alt="상품이미지" /></div>
+						<!-- 상품명 -->
+						<h4>  갤럭시 GALAX 지포스 RTX 2080 SUPER EX WHITE OC D6 8GB (추가상품 이벤트) </h4>
+						<!-- 제조사 -->
+						<h5>갤럭시</h5>
+						<!-- 가격 -->
+						<h3>839,300원</h3>
+					</a>
+					</li>
+				</ul>
+			</div>
+    </div>
+
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" >
+				<ul>
+					<li><a href="#menupanel" data-icon="plus">메뉴</a></li>
+
+					<li><a href="#mainpage" data-icon="home" >홈</a></li>
+					<li><a href="#noticepage" data-icon="minus">공지</a></li>
+					 <li><a href="#loginpanel" data-icon="user" >로그인</a></li>
+				</ul>
+			</div>
+    </div>
+</div>
+
+<!-- ======================================================================================상품정보 페이지======================================================================================-->
+
+<div data-role="page" id="productinfopage">
+
+	<!-- 로그인 패널 -->
+	<div data-role="panel" id="loginpanel" data-display="overlay" data-theme="b">
+			<form>
+					<h3>로그인</h3>
+					<label for="name">ID</label>
+					<input name="name" id="name" type="text" value="" data-mini="true" data-clear-btn="true">
+					<label for="password">PW</label>
+					<input name="password" id="password" type="password" value="" data-mini="true" data-clear-btn="true">
+					<div class="ui-grid-a">
+							<div class="ui-block-a"><a href="#memberjoinpage" data-role="button" data-rel="close">회원가입</a></div>
+							<div class="ui-block-b"><a href="#menupanel" data-role="button" data-rel="close">로그인</a></div>
+							<div class="ui-block-c"><a href="#" data-role="button" data-rel="close">뒤로가기</a></div>
+					</div>
+			</form>
+	</div>
+
+<!-- 메뉴패널 -->
+<div data-role="panel" id="menupanel" data-display="overlay">
+	<h1>메뉴</h1>
+		<ul data-role="listview">
+				<div data-role="navbar"id="subpanel">
+					<ul>
+						<li><a>마이</br>페이지</a></li>
+						<li><a></br>이벤트</a></li>
+						<li><a href="#basketpage">장바</br>구니</a></li>
+					</ul>
+				</div>
+			</li>
+				<li data-icon="grid"><a href="#productpage" >전체상품</a></li>
+				<li data-icon="heart"><a href="#bestproductpage" >베스트상품</a></li>
+				<li data-icon="tag"><a href="#hotdealpage" >핫딜상품</a></li>
+				<li data-icon="star"><a href="#eventproductpage" >이벤트상품</a></li>
+				<li data-icon="user"><a href="#loginpanel">로그인</a></li>
+
+		</ul>
+</div>
+<!-- 장바구니 패널 -->
+<div data-role="panel" id="basketpanel" data-display="overlay" data-position="right">
+		<h3>장바구니</h3>
+		<p>장바구니 패널 영역입니다.</p>
+		<a href="#basketpage" data-role="button" data-inline="true">장바구니이동</a>
+		<a href="#" data-role="button" data-rel="close" data-inline="true"> 닫기</a>
+</div>
+
+<!-- 메인 화면 -->
+    <div data-role="header"data-position="fixed" data-theme="b" data-add-back-btn="true">
+	<h1>상품정보페이지</h1>
+
+		<a href="#basketpanel" data-icon="shop" data-iconpos="notext" class="ui-btn-right">basket</a>
+    </div>
+
+    <div data-role="content">
+			<div id="infobox">
+			<div id="imgbox"></div><!--이미지-->
+			<h4></h4><!--상품명-->
+			<h5></h5><!--제조사명-->
+			<div id="pricebox">
+		</div><!--상품 가격-->
+			<div data-role="fieldcontain">
+				<label for="age1">선택옵션</label>
+			<select name="age1" id="age1" data-native-menu="false" multiple="multiple">
+				<option value=" " data-placeholder="true">선택하세요</option>
+				<option value="num1">선택옵션1</option>
+				<option value="num2">선택옵션2</option>
+				<option value="num3">선택옵션3</option>
+				<option value="num4">선택옵션4 </option>
+				<option value="num5">선택옵션5</option>
+			</select>
+				</div>
+			<button><a href="#basketpage">장바구니</a></button><button><a href="#baypage">구매</a></button>
+
+		<div data-role="navbar">
+		<ul>
+			<li><a id="PIBBT" class="ui-btn-active">상품정보</a></li>
+			<li><a id="RVBBT">구매후기</a></li>
+			<li><a id="CPBBT">회사정보</a></li>
+		</ul></div>
+		<div id="productinfobox">
+<img src="img/productinfoimg.jpg"/>
+		</div>
+
+		<div id="reviewbox">
+		<table>
+		<tr>
+			<th>ID</th>
+			<th id="reviewcontents">리뷰내용</th>
+		</tr>
+			<tr>
+				<td>사용자1</td>
+				<td id="reviewcontents">리뷰 내용1</td>
+			</tr>
+			<tr>
+				<td>사용자2</td>
+				<td id="reviewcontents">리뷰 내용2</td>
+			</tr>
+			<tr>
+				<td>사용자3</td>
+				<td id="reviewcontents">리뷰 내용3</td>
+			</tr>
+			<tr>
+				<td>사용자4</td>
+				<td id="reviewcontents">리뷰 내용4</td>
+			</tr>
+			<tr>
+				<td>사용자5</td>
+				<td id="reviewcontents">리뷰 내용5</td>
+			</tr>
+		</table>
+		</div>
+
+		<div id="companyinfobox">
+			<table>
+				<tr>
+					<td>회사명</td>
+					<td id="reviewcontents">ㅇㅇㅇㅇㅇ</td>
+				</tr>
+				<tr>
+					<td>대표자명</td>
+					<td id="reviewcontents">OOO</td>
+				</tr>
+				<tr>
+					<td>사업정목</td>
+					<td id="reviewcontents">전자</td>
+				</tr>
+				<tr>
+					<td>전화번호</td>
+					<td id="reviewcontents">000-0000-0000</td>
+				</tr>
+				<tr>
+					<td>주소</td>
+					<td id="reviewcontents">회사주소</td>
+				</tr>
+				<table id="addinfolist">
+					<tr >
+						<td>상담시간</td>
+						<td id="reviewcontents">00:00~00:00(요일)</td>
+					</tr>
+					<tr >
+						<td>사이트</td>
+						<td id="reviewcontents">www.abc.com</td>
+					</tr>
+					<tr>
+						<td>반품주소</td>
+						<td id="reviewcontents">반품지주소</td>
+					</tr>
+				</table>
+				<tr>
+				<td  colspan="2"><a id="addinfoBt">더 보기!</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" >
+				<ul>
+					<li><a href="#menupanel" data-icon="plus">메뉴</a></li>
+
+					<li><a href="#mainpage" data-icon="home" >홈</a></li>
+					<li><a href="#noticepage" data-icon="minus">공지</a></li>
+					 <li><a href="#loginpanel" data-icon="user" >로그인</a></li>
+				</ul>
+			</div>
+    </div>
+</div>
+
+
+
+<!-- ======================================================================================장바구니 페이지======================================================================================-->
+
+<div data-role="page" id="basketpage">
+
+	<!-- 로그인 패널 -->
+	<div data-role="panel" id="loginpanel" data-display="overlay" data-theme="b">
+			<form>
+					<h3>로그인</h3>
+					<label for="name">ID</label>
+					<input name="name" id="name" type="text" value="" data-mini="true" data-clear-btn="true">
+					<label for="password">PW</label>
+					<input name="password" id="password" type="password" value="" data-mini="true" data-clear-btn="true">
+					<div class="ui-grid-a">
+							<div class="ui-block-a"><a href="#memberjoinpage" data-role="button" data-rel="close">회원가입</a></div>
+							<div class="ui-block-b"><a href="#menupanel" data-role="button" data-rel="close">로그인</a></div>
+							<div class="ui-block-c"><a href="#" data-role="button" data-rel="close">뒤로가기</a></div>
+					</div>
+			</form>
+	</div>
+
+<!-- 메뉴패널 -->
+<div data-role="panel" id="menupanel" data-display="overlay">
+	<h1>메뉴</h1>
+		<ul data-role="listview">
+				<li data-icon="grid"><a href="#productpage" >상품</a></li>
+				<li data-icon="shop"><a href="#basketpage" >장바구니</a></li>
+				<li data-icon="user"><a href="#loginpanel">로그인</a></li>
+
+		</ul>
+</div>
+<!-- 장바구니 패널 -->
+<div data-role="panel" id="basketpanel" data-display="overlay" data-position="right">
+		<h3>장바구니</h3>
+		<p>장바구니 패널 영역입니다.</p>
+		<a href="#basketpage" data-role="button" data-inline="true">장바구니이동</a>
+		<a href="#" data-role="button" data-rel="close" data-inline="true"> 닫기</a>
+</div>
+
+<!-- 메인 화면 -->
+<div data-role="header"data-position="fixed" data-theme="b" data-add-back-btn="true">
+<h1><a href="#mainpage">장바구니페이지</a></h1>
+	<a href="#basketpanel" data-icon="shop" data-iconpos="notext" class="ui-btn-right">basket</a>
+<div><label for="inputsc"></label>
+<input type="search" name="inputsc" id="inputsc" placeholder="검색어 입력"></div>
+</div>
+
+    <div data-role="content">
+			<span> 이미지</span><h4>상품이름</h4>
+			<h3>결제금액</h3>
+			<h4>옵션사항</h4>
+			<button>결제</button>
+    </div>
+
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" >
+				<ul>
+					<li><a href="#menupanel" data-icon="plus">메뉴</a></li>
+
+					<li><a href="#mainpage" data-icon="home" >홈</a></li>
+					<li><a href="#noticepage" data-icon="minus">공지</a></li>
+					 <li><a href="#loginpanel" data-icon="user" >로그인</a></li>
+				</ul>
+			</div>
+    </div>
+</div>
+
+
+<!-- ======================================================================================결제 페이지======================================================================================-->
+
+<div data-role="page" id="baypage">
+
+	<!-- 로그인 패널 -->
+	<div data-role="panel" id="loginpanel" data-display="overlay" data-theme="b">
+			<form>
+					<h3>로그인</h3>
+					<label for="name">ID</label>
+					<input name="name" id="name" type="text" value="" data-mini="true" data-clear-btn="true">
+					<label for="password">PW</label>
+					<input name="password" id="password" type="password" value="" data-mini="true" data-clear-btn="true">
+					<div class="ui-grid-a">
+							<div class="ui-block-a"><a href="#memberjoinpage" data-role="button" data-rel="close">회원가입</a></div>
+							<div class="ui-block-b"><a href="#menupanel" data-role="button" data-rel="close">로그인</a></div>
+							<div class="ui-block-c"><a href="#" data-role="button" data-rel="close">뒤로가기</a></div>
+					</div>
+			</form>
+	</div>
+
+<!-- 메뉴패널 -->
+<div data-role="panel" id="menupanel" data-display="overlay">
+	<h1>메뉴</h1>
+		<ul data-role="listview">
+				<div data-role="navbar"id="subpanel">
+					<ul>
+						<li><a>마이</br>페이지</a></li>
+						<li><a></br>이벤트</a></li>
+						<li><a href="#basketpage">장바</br>구니</a></li>
+					</ul>
+				</div>
+			</li>
+				<li data-icon="grid"><a href="#productpage" >전체상품</a></li>
+				<li data-icon="heart"><a href="#bestproductpage" >베스트상품</a></li>
+				<li data-icon="tag"><a href="#hotdealpage" >핫딜상품</a></li>
+				<li data-icon="star"><a href="#eventproductpage" >이벤트상품</a></li>
+				<li data-icon="user"><a href="#loginpanel">로그인</a></li>
+
+		</ul>
+</div>
+<!-- 장바구니 패널 -->
+<div data-role="panel" id="basketpanel" data-display="overlay" data-position="right">
+		<h3>장바구니</h3>
+		<p>장바구니 패널 영역입니다.</p>
+		<a href="#basketpage" data-role="button" data-inline="true">장바구니이동</a>
+		<a href="#" data-role="button" data-rel="close" data-inline="true"> 닫기</a>
+</div>
+
+<!-- 메인 화면 -->
+    <div data-role="header"data-position="fixed" data-theme="b" data-add-back-btn="true">
+	<h1>결제페이지</h1>
+
+		<a href="#basketpanel" data-icon="shop" data-iconpos="notext" class="ui-btn-right">basket</a>
+    </div>
+
+		<div data-role="content">
+			<div id="bayinfo">
+			<span> 이미지</span><h4>상품이름</h4>
+			<h3>결제금액</h3>
+			<label >주소입력</label>
+			<input type="text" data-filter-placeholder="주소입력"></input>
+			<div data-role="fieldcontain">
+				<label for="age1">선택옵션</label>
+			<select name="age1" id="age1" data-native-menu="false" multiple="multiple">
+				<option value=" " data-placeholder="true">선택하세요</option>
+				<option value="num1">선택옵션1</option>
+				<option value="num2">선택옵션2</option>
+				<option value="num3">선택옵션3</option>
+				<option value="num4">선택옵션4 </option>
+				<option value="num5">선택옵션5</option>
+			</select>
+				</div>
+			<div data-role="fieldcontain">
+				<label for="age1">결제방법</label>
+				<select name="age1" id="age1" data-inline="true">
+					<option value="">결제방법선택</option>
+					<optgroup label="무통장,카드">
+						<option value="num1">카드결제</option>
+						<option value="num2">무통장입금</option>
+					</optgroup>
+					<optgroup label="페이">
+						<option value="num4">삼성페이</option>
+						<option value="num5">토스</option>
+						<option value="num6">카카오페이</option>
+					</optgroup>
+				</select>
+			</div>
+			<button>구매</button><button>취소</button>
+		</div>
+    </div>
+
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" >
+				<ul>
+					<li><a href="#menupanel" data-icon="plus">메뉴</a></li>
+
+					<li><a href="#mainpage" data-icon="home" >홈</a></li>
+					<li><a href="#noticepage" data-icon="minus">공지</a></li>
+					 <li><a href="#loginpanel" data-icon="user" >로그인</a></li>
+				</ul>
+			</div>
+    </div>
+</div>
+
+
+<!-- ======================================================================================회원가입 페이지======================================================================================-->
+
+<div data-role="page" id="memberjoinpage">
+
+	<!-- 로그인 패널 -->
+	<div data-role="panel" id="loginpanel" data-display="overlay" data-theme="b">
+			<form>
+					<h3>로그인</h3>
+					<label for="name">ID</label>
+					<input name="name" id="name" type="text" value="" data-mini="true" data-clear-btn="true">
+					<label for="password">PW</label>
+					<input name="password" id="password" type="password" value="" data-mini="true" data-clear-btn="true">
+					<div class="ui-grid-a">
+							<div class="ui-block-a"><a href="#memberjoinpage" data-role="button" data-rel="close">회원가입</a></div>
+							<div class="ui-block-b"><a href="#menupanel" data-role="button" data-rel="close">로그인</a></div>
+							<div class="ui-block-c"><a href="#" data-role="button" data-rel="close">뒤로가기</a></div>
+					</div>
+			</form>
+	</div>
+<!-- 메뉴패널 -->
+<div data-role="panel" id="menupanel" data-display="overlay">
+	<h1>메뉴</h1>
+		<ul data-role="listview">
+				<div data-role="navbar"id="subpanel">
+					<ul>
+						<li><a>마이</br>페이지</a></li>
+						<li><a></br>이벤트</a></li>
+						<li><a href="#basketpage">장바</br>구니</a></li>
+					</ul>
+				</div>
+			</li>
+				<li data-icon="grid"><a href="#productpage" >전체상품</a></li>
+				<li data-icon="heart"><a href="#bestproductpage" >베스트상품</a></li>
+				<li data-icon="tag"><a href="#hotdealpage" >핫딜상품</a></li>
+				<li data-icon="star"><a href="#eventproductpage" >이벤트상품</a></li>
+				<li data-icon="user"><a href="#loginpanel">로그인</a></li>
+
+		</ul>
+</div>
+<!-- 장바구니 패널 -->
+<div data-role="panel" id="basketpanel" data-display="overlay" data-position="right">
+		<h3>장바구니</h3>
+		<p>장바구니 패널 영역입니다.</p>
+		<a href="#basketpage" data-role="button" data-inline="true">장바구니이동</a>
+		<a href="#" data-role="button" data-rel="close" data-inline="true"> 닫기</a>
+</div>
+
+<!-- 메인 화면 -->
+    <div data-role="header"data-position="fixed" data-theme="b" data-add-back-btn="true">
+	<h1>회원가입페이지</h1>
+
+		<a href="#basketpanel" data-icon="shop" data-iconpos="notext" class="ui-btn-right">basket</a>
+    </div>
+
+    <div data-role="content">
+				<form method="get" action="form.jsp">
+					<h1>회원 가입</h1>
+					<fieldset>
+						<table>
+							<tr>
+								<td><label for="s_id">아이디</label></td>
+								<td><input type="text" name="s_id" id="s_id" data-role="none"/></td>
+							</tr>
+							<tr>
+								<td><label for="s_name">성명</label></td>
+								<td><input name="s_name" id="s_name" data-role="none"/></td>
+							</tr>
+							<tr>
+								<td><label for="s_name">비밀번호</label></td>
+								<td><input name="s_name" id="s_name" data-role="none" type="password"/></td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td><h6 id="pwrule">(영문/숫자 총합 8~20자)</h6></td>
+							</tr>
+							<tr>
+								<td><label for="s_name">비밀번호확인</label></td>
+								<td><input name="s_name" id="s_name" data-role="none"type="password"/></td>
+							</tr>
+						</table>
+					</fieldset><br/>
+					<fieldset>
+						<legend>부가 정보</legend>
+						<table>
+						<tr>
+							<td><label for="e_mail">e-mail </label></td>
+						  <td><input type="url" name="e_mail"  data-role="none"/><br/></td>
+					</tr>
+					<tr>
+						<td><label for="e_mail">전화번호</label></td>
+						<td><input type="text" name="s_tel" placeholder="000-0000-0000" data-role="none"/><br/></td>
+					</tr>
+					<tr>
+						<td><label for="address">주소</label></td>
+						<td><input type="text" name="address" data-role="none"/><br/><td>
+					</tr>
+					<tr>
+						<td><label for="s_address">상세주소 </label></td>
+						<td><input type="text" name="s_address"  data-role="none"/><br/></td>
+					</tr>
+					</table>
+					</fieldset><br/>
+					<button><a href="#mainpage" id='mjoinBt' >회원가입</a></button>
+					<button><a href="#mainpage" >취소</a></button>
+				 </form>
+    </div>
+
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" >
+				<ul>
+					<li><a href="#menupanel" data-icon="plus">메뉴</a></li>
+
+					<li><a href="#mainpage" data-icon="home" >홈</a></li>
+					<li><a href="#noticepage" data-icon="minus">공지</a></li>
+					 <li><a href="#loginpanel" data-icon="user" >로그인</a></li>
+				</ul>
+			</div>
+    </div>
+</div>
+
+
+<!-- ======================================================================================공지(이벤트) 페이지======================================================================================-->
+
+<div data-role="page" id="noticepage">
+
+	<!-- 로그인 패널 -->
+	<div data-role="panel" id="loginpanel" data-display="overlay" data-theme="b">
+			<form>
+					<h3>로그인</h3>
+					<label for="name">ID</label>
+					<input name="name" id="name" type="text" value="" data-mini="true" data-clear-btn="true">
+					<label for="password">PW</label>
+					<input name="password" id="password" type="password" value="" data-mini="true" data-clear-btn="true">
+					<div class="ui-grid-a">
+							<div class="ui-block-a"><a href="#memberjoinpage" data-role="button" data-rel="close">회원가입</a></div>
+							<div class="ui-block-b"><a href="#menupanel" data-role="button" data-rel="close">로그인</a></div>
+							<div class="ui-block-c"><a href="#" data-role="button" data-rel="close">뒤로가기</a></div>
+					</div>
+			</form>
+	</div>
+
+<!-- 메뉴패널 -->
+<div data-role="panel" id="menupanel" data-display="overlay">
+	<h1>메뉴</h1>
+		<ul data-role="listview">
+				<div data-role="navbar"id="subpanel">
+					<ul>
+						<li><a>마이</br>페이지</a></li>
+						<li><a></br>이벤트</a></li>
+						<li><a href="#basketpage">장바</br>구니</a></li>
+					</ul>
+				</div>
+			</li>
+				<li data-icon="grid"><a href="#productpage" >전체상품</a></li>
+				<li data-icon="heart"><a href="#bestpage" >베스트상품</a></li>
+				<li data-icon="tag"><a href="#hotdealpage" >핫딜상품</a></li>
+				<li data-icon="star"><a href="#eventproductpage" >이벤트상품</a></li>
+				<li data-icon="user"><a href="#loginpanel">로그인</a></li>
+
+		</ul>
+</div>
+
+<!-- 장바구니 패널 -->
+<div data-role="panel" id="basketpanel" data-display="overlay" data-position="right">
+		<h3>장바구니</h3>
+		<div data-role="listview">
+			<ul>
+
+			</ul>
+		<div>
+		<a href="#basketpage" data-role="button" data-inline="true">장바구니이동</a>
+		<a href="#" data-role="button" data-rel="close" data-inline="true"> 닫기</a>
+</div>
+
+<!-- 메인 화면 -->
+    <div data-role="header"data-position="fixed" data-theme="b" data-add-back-btn="true">
+	<h1>공지사항페이지</h1>
+		<a href="#basketpanel" data-icon="shop" data-iconpos="notext" class="ui-btn-right">basket</a>
+    </div>
+
+    <div data-role="content">
+    </div>
+
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar" >
+				<ul>
+					<li><a href="#menupanel" data-icon="plus">메뉴</a></li>
+
+					<li><a href="#mainpage" data-icon="home" >홈</a></li>
+					<li><a href="#noticepage" data-icon="minus">공지</a></li>
+					 <li><a href="#loginpanel" data-icon="user" >로그인</a></li>
+				</ul>
+			</div>
+		</div>
+</div>
+
+</body>
+</html>
